@@ -1,0 +1,2 @@
+# miniw_ra2_5_aliciadionicio_uxueesteve_nicorios_romanzyuzin
+trabajo de ricard
