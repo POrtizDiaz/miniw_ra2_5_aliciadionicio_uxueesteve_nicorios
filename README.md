@@ -1,2 +1,2 @@
-# miniw_ra2_5_aliciadionicio_uxueesteve_nicorios_romanzyuzin
+# miniw_ra2_5_aliciadionicio_uxueesteve_nicorios
 trabajo de ricard
