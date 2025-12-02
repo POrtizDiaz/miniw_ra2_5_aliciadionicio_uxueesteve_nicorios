@@ -1,4 +1,4 @@
-package ra2Pedro;
+package ra2;
 
 public class Client implements Runnable {
     private final MessageBuffer buffer;

@@ -1,4 +1,4 @@
-package ra2Pedro;
+package ra2;
 
 public class Processador implements Runnable {
     private final MessageBuffer buffer;

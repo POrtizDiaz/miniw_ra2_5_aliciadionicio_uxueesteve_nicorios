@@ -1,22 +1,25 @@
 package ra2;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class MessageBuffer {
+    private String dada = null;
+    private boolean existeixDada = false;
 
-    private final Queue<String> buffer = new LinkedList<>();
-
-    // Método para añadir mensajes al buffer
-    public synchronized void put(String msg) {
-        buffer.add(msg);
-        notifyAll(); // Avisamos a los hilos que estén esperando
+    public synchronized void posarMissatge(String novaDada) throws InterruptedException {
+        while (existeixDada) {
+            wait();
+        }
+        dada = novaDada;
+        existeixDada = true;
+        notifyAll();
     }
 
-    // Método para extraer mensajes del buffer
-    public synchronized String take() throws InterruptedException {
-        while (buffer.isEmpty()) {
-            wait(); // Esperamos hasta que alguien ponga un mensaje
+    public synchronized String treureMissatge() throws InterruptedException {
+        while (!existeixDada) {
+            wait();
         }
-        return buffer.poll();
+        String resultat = dada;
+        existeixDada = false;
+        notifyAll();
+        return resultat;
     }
 }
