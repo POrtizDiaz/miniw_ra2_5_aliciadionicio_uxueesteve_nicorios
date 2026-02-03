@@ -1,4 +1,4 @@
-package ra3.ProvaFase2.Fita3;
+package ra3.Fase2.Fita3;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

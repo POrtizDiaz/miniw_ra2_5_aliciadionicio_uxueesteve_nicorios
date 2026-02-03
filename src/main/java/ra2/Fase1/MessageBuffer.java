@@ -1,4 +1,4 @@
-package ra2;
+package ra2.Fase1;
 
 public class MessageBuffer {
     private String dada = null;

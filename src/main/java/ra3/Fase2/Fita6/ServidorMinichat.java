@@ -1,4 +1,4 @@
-package ra3.ProvaFase2.Fita6;
+package ra3.Fase2.Fita6;
 
 import java.io.IOException;
 import java.net.ServerSocket;

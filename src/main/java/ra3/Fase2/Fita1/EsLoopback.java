@@ -1,4 +1,4 @@
-package ra3.ProvaFase2.Fita1;
+package ra3.Fase2.Fita1;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

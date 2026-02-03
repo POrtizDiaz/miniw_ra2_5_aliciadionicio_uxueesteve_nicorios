@@ -1,4 +1,4 @@
-package ra3.ProvaFase2.Fita2;
+package ra3.Fase2.Fita2;
 
 import java.io.*;
 import java.net.*;
