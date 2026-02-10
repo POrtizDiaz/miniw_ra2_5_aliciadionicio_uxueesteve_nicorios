@@ -32,12 +32,9 @@ public class Protocol {
         }
     }
 
-    private void handleLogin(String username, ClientHandler ch) {
-    System.out.println("DEBUG: S'ha cridat al mètode handleLogin amb l'usuari: " + username);
-}
+    private void handleLogin(String username, ClientHandler ch) {}
     private void handleMsg(String msg, ClientHandler ch, SecureChatServer server) {}
     private void handleList(ClientHandler ch) {}
     private void handleQuit(ClientHandler ch) {}
-
     
 }
