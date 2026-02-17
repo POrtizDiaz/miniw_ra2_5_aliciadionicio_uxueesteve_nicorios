@@ -34,7 +34,6 @@ public class ServidorMinichat {
             }
         } catch (IOException e) {
             log("Error en servidor: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
