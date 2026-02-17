@@ -1,112 +1,201 @@
-🧹 PAS PREVI: Com assegurar que el port 5000 està lliure
-Abans de començar qualsevol prova, si us surt l'error Address already in use, heu de matar el procés antic.
+RA1
+Descripción
 
-Opció fàcil (des de l'IDE):
+En este resultado de aprendizaje se desarrolla la base del proyecto. Se define la idea principal, los objetivos y el alcance. Se establecen los requisitos iniciales y la estructura general sobre la que se construirá el resto del trabajo.
 
-Busca a la pestanya de baix ("Run" o "Console") tots els botons vermells (quadrats) de "Stop" i clica'ls tots fins que estiguin grisos (apagats).
+Objetivos
 
-Opció "Hacker" (si l'IDE falla):
+Definir el problema o necesidad a resolver
 
-Obre la terminal (PowerShell o CMD).
+Analizar el contexto y los usuarios
 
-Escriu: netstat -ano | findstr :5000
+Establecer los requisitos funcionales y no funcionales
 
-Si surt alguna cosa, fixa't en el número del final (el PID, ex: 12345).
+Planificar la estructura inicial del proyecto
 
-Escriu: taskkill /F /PID 12345 (canvia 12345 pel número que t'hagi sortit).
+Contenido
 
-📸 PART 1: Provar i Documentar la FITA 2 (Sessions i Xat)
-Objectiu: Demostrar que el xat funciona, que els usuaris tenen nom i que no es poden repetir noms.
+Documento de análisis
 
-1. Execució:
+Bocetos o wireframes iniciales
 
-Ves al paquet ra4.Fita2_Sessions.server.
+Definición de tecnologías utilizadas
 
-Executa SecureChatServer.java (Botó dret -> Run).
+Organización del repositorio
 
-Ves al paquet ra4.Fita2_Sessions.client.
+Tecnologías utilizadas
 
-Executa ClientSimple.java dues vegades (per tenir dos usuaris, diguem-ne Usuari A i Usuari B).
+Lenguaje o lenguajes principales
 
-2. Què fer (Guió de prova):
+Entorno de desarrollo
 
-Finestra A: Escriu LOGIN Anna. (Resposta esperada: OK Benvingut Anna).
+Herramientas de diseño o planificación
 
-Finestra B: Escriu LOGIN Anna. (Resposta esperada: ERROR L'usuari Anna ja existeix). <-- Fes captura d'això!
+Autores
 
-Finestra B: Escriu LOGIN Bernat. (Resposta: OK Benvingut Bernat).
+Nombre Apellido
 
-Finestra A: Escriu MSG Hola Bernat, com estàs?.
+Nombre Apellido
 
-Finestra B: Mira si ha rebut el missatge. <-- Fes captura d'això!
+Nombre Apellido
 
-Finestra A: Escriu LIST. (Haureu de veure Anna i Bernat). <-- Fes captura d'això!
+Nombre Apellido
 
-Finestra B: Escriu QUIT.
+README RA2
 
-3. Captures per al PDF (Fita 2):
+RA2
+Descripción
 
-Captura 1: Intent de Login duplicat (Error) i Login correcte.
+En este resultado de aprendizaje se implementa la funcionalidad principal del proyecto. Se desarrollan las características definidas en la fase anterior y se integran los distintos componentes del sistema.
 
-Captura 2: Intercanvi de missatges entre dos clients.
+Objetivos
 
-Captura 3: La comanda LIST mostrant els usuaris connectats.
+Implementar la lógica principal
 
-🚀 PART 2: Provar i Documentar la FITA 3 (Càrrega i Escalabilitat)
-Objectiu: Demostrar que el servidor aguanta 100 usuaris de cop gràcies al Thread Pool.
+Desarrollar la interfaz de usuario
 
-1. Preparació:
+Conectar frontend y backend si procede
 
-ATURA el servidor de la Fita 2 (botó Stop vermell).
+Garantizar el correcto funcionamiento del sistema
 
-Assegura't que el port 5000 està lliure.
+Contenido
 
-2. Execució:
+Código fuente organizado por carpetas
 
-Ves al paquet ra4.Fita3_Carrega.server.
+Componentes principales
 
-Executa ServidorEscalable.java. (Fixa't que posa "Servidor ESCALABLE" a la consola).
+Recursos gráficos o estáticos
 
-Ves al paquet ra4.Fita3_Carrega.client.
+Configuración del proyecto
 
-Executa LoadTest.java.
+Estructura de carpetas
 
-3. Què observar:
+src
 
-Veureu que la consola del client comença a escopir línies: Bot-1 ha acabat, Bot-45 ha acabat, etc.
+assets
 
-Veureu que la consola del servidor rep moltes connexions.
+components
 
-El més important: No ha de donar error vermell.
+services
 
-4. Captures per al PDF (Fita 3):
+Otros directorios relevantes
 
-Captura 4: La consola del ServidorEscalable plena d'activitat entrant.
+Instrucciones de ejecución
 
-Captura 5: La consola del LoadTest mostrant com els 100 bots acaben la feina (com el log que m'has passat abans).
+Clonar el repositorio
 
-📝 PART 3: Redacció del PDF (El que demana el professor)
-Al document PDF, a més de les captures, la teva companya ha d'escriure el següent (pots copiar-li aquest esquema):
+Instalar dependencias
 
-1. Explicació Tècnica
-Per a la Fita 2 (Sessions):
+Ejecutar el proyecto con el comando correspondiente
 
-"Hem utilitzat un ConcurrentHashMap a la classe UserStorage per guardar els usuaris connectats. Això és millor que un ArrayList perquè permet buscar usuaris pel seu nom ràpidament i és segur quan hi ha molts fils (thread-safe). El protocol gestiona comandes com LOGIN, MSG i LIST per controlar l'estat."
+Autores
 
-Per a la Fita 3 (Escalabilitat):
+Nombre Apellido
 
-"Per fer el servidor escalable, hem substituït la creació il·limitada de fils (new Thread().start()) per un ExecutorService (Thread Pool) amb una mida fixa de 50 fils.
+Nombre Apellido
 
-Això protegeix el servidor: si entren 1000 usuaris de cop, el servidor només en processa 50 a la vegada i la resta fan cua. Això evita que el servidor col·lapsi per falta de memòria RAM (evita atacs DoS)."
+Nombre Apellido
 
-2. Decisions Tècniques preses
-"Hem separat el codi en paquets (server, client, handler, protocol) per mantenir l'ordre."
+Nombre Apellido
 
-"Hem creat una classe LoadTest específica per simular l'estrès del sistema amb 100 bots automàtics."
+README RA3
 
-3. Rols i Tasques
-(Aquí poseu qui ha fet què. Exemple:)
+RA3
+Descripción
 
-[El teu nom]: Programació del nucli del servidor i implementació del Thread Pool.
+En este resultado de aprendizaje se realiza la validación, mejora y optimización del proyecto. Se corrigen errores, se optimiza el rendimiento y se documenta el funcionamiento final.
 
-[Nom companya]: Proves de càrrega, validació de la lògica de sessions i documentació del projecte.
+Objetivos
+
+Realizar pruebas funcionales
+
+Corregir errores detectados
+
+Optimizar rendimiento y usabilidad
+
+Documentar el proyecto
+
+Contenido
+
+Informe de pruebas
+
+Mejoras implementadas
+
+Versiones finales del código
+
+Documentación técnica y de usuario
+
+Pruebas realizadas
+
+Pruebas unitarias
+
+Pruebas de integración
+
+Pruebas de usabilidad
+
+Conclusiones
+
+Breve resumen de los resultados obtenidos y valoración del trabajo realizado.
+
+Autores
+
+Nombre Apellido
+
+Nombre Apellido
+
+Nombre Apellido
+
+Nombre Apellido
+
+README Fita 1
+
+Fita 1
+Objetivo de la Fita
+
+Definir y presentar la idea inicial del proyecto junto con el análisis preliminar.
+
+Entregables
+
+Documento de propuesta
+
+Análisis de requisitos
+
+Bocetos iniciales
+
+Estado
+
+Fase completada con la validación de la propuesta y aprobación de la idea base.
+
+README Fita 2
+
+Fita 2
+Objetivo de la Fita
+
+Desarrollar la primera versión funcional del proyecto.
+
+Entregables
+
+Implementación parcial o completa
+
+Interfaz funcional
+
+Revisión de requisitos cumplidos
+
+Estado
+
+Versión funcional operativa con las características principales implementadas.
+
+README Fita 3
+
+Fita 3
+Objetivo de la Fita
+
+Finalizar el proyecto, corregir errores y preparar la entrega definitiva.
+
+Entregables
+
+Versión final del proyecto
+
+Documentación completa
+
+Informe de pruebas y mejoras
