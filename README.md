@@ -1,201 +1,87 @@
-RA1
-Descripción
+📖 README - Guía de Pruebas y Capturas Fase 4 (RA5)
+⚠️ IMPORTANTE PARA TODAS LAS CAPTURAS: Según el PDF de la práctica, todas las capturas de pantalla deben mostrar l'hora del sistema visible (la barra de tareas de tu Windows/Mac con el reloj). No recortes solo la ventana de la terminal, captura la pantalla completa o la ventana junto con el reloj.
 
-En este resultado de aprendizaje se desarrolla la base del proyecto. Se define la idea principal, los objetivos y el alcance. Se establecen los requisitos iniciales y la estructura general sobre la que se construirá el resto del trabajo.
+🟢 FITA 1 — Cifrado Simétrico (AES/GCM)
+Objetivo del PDF: Demostrar que los mensajes MSG viajan cifrados usando una clave precompartida (AES), mientras que LOGIN, LIST y QUIT viajan en texto plano.
 
-Objetivos
+Pasos de ejecución:
+Asegúrate de que el puerto 5000 está libre.
 
-Definir el problema o necesidad a resolver
+Ejecuta el ServidorEscalable de la carpeta Fita 1.
 
-Analizar el contexto y los usuarios
+Ejecuta dos instancias de ClientSimple de la carpeta Fita 1 (las llamaremos Cliente A y Cliente B).
 
-Establecer los requisitos funcionales y no funcionales
+Qué probar y capturar:
+Paso 1: Conexión y Texto Plano
 
-Planificar la estructura inicial del proyecto
+En el Cliente A escribe: LOGIN Anna
 
-Contenido
+En el Cliente B escribe: LOGIN Bernat
 
-Documento de análisis
+Lo que demuestra: Que el comando LOGIN no está cifrado y funciona normal.
 
-Bocetos o wireframes iniciales
+Paso 2: Mensajes Cifrados en Tránsito y Desencriptados
 
-Definición de tecnologías utilizadas
+En el Cliente A escribe: MSG Hola Bernat, esto es un secreto.
 
-Organización del repositorio
+Ve a la consola del Servidor. Deberías ver un texto tipo: MSG Desxifrat al servidor -> Anna: Hola Bernat... (o el log que hayamos puesto para demostrar que ha llegado cifrado y el servidor ha podido abrirlo).
 
-Tecnologías utilizadas
+Ve a la consola del Cliente B. Debería aparecer el mensaje en claro.
 
-Lenguaje o lenguajes principales
+📸 CAPTURA 1: Haz una captura donde se vean las tres consolas (Cliente A enviando, Servidor recibiendo/desencriptando, Cliente B leyendo). Esta captura justifica el punto del PDF: "Missatges xifrats en trànsit i Missatges desxifrats al servidor".
 
-Entorno de desarrollo
+🔵 FITA 2 — RSA, Intercambio de Claves y Validación Robusta
+Objetivo del PDF: Demostrar el Handshake (RSA), que la clave AES ahora es dinámica, que hay validación de errores y (como extra) los roles y el HASH SHA-256.
 
-Herramientas de diseño o planificación
+Pasos de ejecución:
+Detén los procesos de la Fita 1.
 
-Autores
+Ejecuta el ServidorEscalable de la carpeta Fita 2.
 
-Nombre Apellido
+Ejecuta dos instancias de ClientSimple de la carpeta Fita 2 (Cliente A y Cliente B).
 
-Nombre Apellido
+Qué probar y capturar:
+Paso 1: Intercambio de claves (Handshake RSA/AES)
 
-Nombre Apellido
+Nada más arrancar el Servidor, fíjate que pone: "Generant parell de claus RSA...".
 
-Nombre Apellido
+Nada más arrancar un Cliente, fíjate que pone: "Connectant al servidor i negociant claus..." y luego "Connexió SEGURA establerta!".
 
-README RA2
+📸 CAPTURA 2: Captura la consola del Servidor y del Cliente justo al arrancar, demostrando el intercambio exitoso de claves (Handshake).
 
-RA2
-Descripción
+Paso 2: Validación de entradas y control de errores
 
-En este resultado de aprendizaje se implementa la funcionalidad principal del proyecto. Se desarrollan las características definidas en la fase anterior y se integran los distintos componentes del sistema.
+En el Cliente A, intenta hacer un login inválido (por ejemplo, con caracteres raros o muy corto): LOGIN @#!! o LOGIN ab.
 
-Objetivos
+El servidor debe rechazarlo con un mensaje de ERROR Nom d'usuari invàlid....
 
-Implementar la lógica principal
+📸 CAPTURA 3: Captura este momento. Esto justifica el punto del PDF: "Errors gestionats correctament / Validacions implementades".
 
-Desarrollar la interfaz de usuario
+Paso 3: Excelencia - Roles de Usuario (Admin vs User)
 
-Conectar frontend y backend si procede
+En el Cliente A escribe un nombre correcto: LOGIN AdminUser. El servidor le asignará el rol [Rol: ADMIN].
 
-Garantizar el correcto funcionamiento del sistema
+En el Cliente B escribe: LOGIN NormalUser. El servidor le asignará el rol [Rol: USER].
 
-Contenido
+En el Cliente B (el NormalUser) escribe: LIST. Le debe dar un ERROR Permís denegat....
 
-Código fuente organizado por carpetas
+En el Cliente A (el Admin) escribe: LIST. Le debe mostrar la lista de usuarios.
 
-Componentes principales
+📸 CAPTURA 4: Captura las consolas demostrando que el sistema de permisos funciona.
 
-Recursos gráficos o estáticos
+Paso 4: Excelencia - Integridad (SHA-256)
 
-Configuración del proyecto
+En el Cliente A escribe: MSG Validando la integridad del mensaje con SHA-256.
 
-Estructura de carpetas
+Ve a la consola del Servidor y observa que procesa el "MSG Segur". (Opcionalmente, si intentaras enviar un mensaje manipulado o sin el hash, saltaría el error de integridad).
 
-src
+📸 CAPTURA 5: Captura el envío de un mensaje normal en la Fita 2 para demostrar que toda la comunicación fluye correctamente tras el Handshake.
 
-assets
+📝 Resumen para copiar y pegar en el documento PDF de entrega:
+Cuando redactéis el PDF, usad estas descripciones para acompañar las capturas:
 
-components
+Fita 1: "A la Captura 1 demostrem com s'ha integrat AES. El client encripta el missatge abans d'enviar-lo (el protocol base no canvia, només s'intercepta MSG). El servidor rep una cadena en Base64, la desxifra amb la clau precompartida per veure'n el contingut, i la torna a xifrar per fer-ne el broadcast."
 
-services
+Fita 2 (RSA): "A la Captura 2 es veu l'intercanvi de claus. El servidor genera les claus RSA en arrencar. El client, en connectar-se, rep la clau pública, genera una clau AES de sessió, i l'envia xifrada amb RSA al servidor."
 
-Otros directorios relevantes
-
-Instrucciones de ejecución
-
-Clonar el repositorio
-
-Instalar dependencias
-
-Ejecutar el proyecto con el comando correspondiente
-
-Autores
-
-Nombre Apellido
-
-Nombre Apellido
-
-Nombre Apellido
-
-Nombre Apellido
-
-README RA3
-
-RA3
-Descripción
-
-En este resultado de aprendizaje se realiza la validación, mejora y optimización del proyecto. Se corrigen errores, se optimiza el rendimiento y se documenta el funcionamiento final.
-
-Objetivos
-
-Realizar pruebas funcionales
-
-Corregir errores detectados
-
-Optimizar rendimiento y usabilidad
-
-Documentar el proyecto
-
-Contenido
-
-Informe de pruebas
-
-Mejoras implementadas
-
-Versiones finales del código
-
-Documentación técnica y de usuario
-
-Pruebas realizadas
-
-Pruebas unitarias
-
-Pruebas de integración
-
-Pruebas de usabilidad
-
-Conclusiones
-
-Breve resumen de los resultados obtenidos y valoración del trabajo realizado.
-
-Autores
-
-Nombre Apellido
-
-Nombre Apellido
-
-Nombre Apellido
-
-Nombre Apellido
-
-README Fita 1
-
-Fita 1
-Objetivo de la Fita
-
-Definir y presentar la idea inicial del proyecto junto con el análisis preliminar.
-
-Entregables
-
-Documento de propuesta
-
-Análisis de requisitos
-
-Bocetos iniciales
-
-Estado
-
-Fase completada con la validación de la propuesta y aprobación de la idea base.
-
-README Fita 2
-
-Fita 2
-Objetivo de la Fita
-
-Desarrollar la primera versión funcional del proyecto.
-
-Entregables
-
-Implementación parcial o completa
-
-Interfaz funcional
-
-Revisión de requisitos cumplidos
-
-Estado
-
-Versión funcional operativa con las características principales implementadas.
-
-README Fita 3
-
-Fita 3
-Objetivo de la Fita
-
-Finalizar el proyecto, corregir errores y preparar la entrega definitiva.
-
-Entregables
-
-Versión final del proyecto
-
-Documentación completa
-
-Informe de pruebas y mejoras
+Fita 2 (Validacions i Excel·lència): "Hem anat més enllà dels requisits bàsics. Com es veu a les Captures 3 i 4, el sistema valida amb expressions regulars els noms d'usuari i gestiona excepcions. A més, hem implementat un sistema de rols (ADMIN/USER) on només l'administrador pot llistar usuaris, i una verificació d'integritat amb SHA-256 per cada missatge xifrat."
